@@ -8,15 +8,17 @@ import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
 
 type SearchParamsType = {
-  query?: string;
-  page?: string;
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
 }
 
-export default async function Page(props: SearchParamsType) {
-  const query = props.query || '';
-  const currentPage = Number(props.page) || 1;
+export default async function Page({ searchParams }: SearchParamsType) {
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchInvoicesPages(query)
+  const totalPages = await fetchInvoicesPages(query);
 
   return (
     <div className="w-full">
@@ -24,7 +26,7 @@ export default async function Page(props: SearchParamsType) {
         <h1 className={`${lusitana.className} text-2xl`}>Invoices</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Search Invoices..." />
+        <Search placeholder="Search invoices..." />
         <CreateInvoice />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
@@ -34,5 +36,5 @@ export default async function Page(props: SearchParamsType) {
         <Pagination totalPages={totalPages} />
       </div>
     </div>
-  )
+  );
 }
