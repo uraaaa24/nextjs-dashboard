@@ -14,6 +14,9 @@ export function CreateInvoice() {
 }
 
 export function UpdateInvoice({ id }: { id: string }) {
+  // build失敗回避するため一時的に設置
+  console.log(id)
+
   return (
     <Link
       href="/dashboard/invoices"
@@ -25,6 +28,9 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
+  // build失敗回避するため一時的に設置
+  console.log(id)
+  
   return (
     <>
       <button className="rounded-md border p-2 hover:bg-gray-100">
